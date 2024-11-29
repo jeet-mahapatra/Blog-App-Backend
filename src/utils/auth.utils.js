@@ -5,6 +5,7 @@ const secret = "jhinkusuperman@1234567"
 function createTokenForUser(user){
     const payload = {
         _id: user._id,
+        fullName : user.fullName,
         email: user.email,
         profileImageURL: user.profileImage,
         role: user.role

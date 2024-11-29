@@ -1,7 +1,12 @@
 import path from "path"
 import dotenv from "dotenv"
 import express from "express"
+
 import userRoute from "./routes/user.routes.js"
+import blogRoute from "./routes/blog.routes.js"
+
+import { Blog } from "./models/blog.models.js"
+
 import connectDB from "./db/index.db.js";
 import cookieParser from "cookie-parser";
 import { checkForAuthenticationCookie } from "./middlewares/auth.middlewares.js";
@@ -36,12 +41,18 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 app.use(checkForAuthenticationCookie("token"))
+app.use(express.static(path.resolve("./public")))
 
-app.get("/", (req,res)=>{
+app.get("/",async (req,res)=>{
+    const allblogs =  await Blog.find({})
     const user = req.user
-    res.render("home", {user})
+    res.render("home", {
+        user,
+        blogs : allblogs
+    })
 })
 
 
 app.use("/user",userRoute)
+app.use("/blog",blogRoute)
 
