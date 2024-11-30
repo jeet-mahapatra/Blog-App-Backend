@@ -3,6 +3,7 @@ dotenv.config()
 
 import path from "path"
 import express from "express"
+import serverless from "serverless-http"
 import userRoute from "./routes/user.routes.js"
 import blogRoute from "./routes/blog.routes.js"
 
@@ -55,3 +56,4 @@ app.get("/",async (req,res)=>{
 app.use("/user",userRoute)
 app.use("/blog",blogRoute)
 
+export default serverless(app);
