@@ -1,7 +1,8 @@
-import path from "path"
 import dotenv from "dotenv"
-import express from "express"
+dotenv.config()
 
+import path from "path"
+import express from "express"
 import userRoute from "./routes/user.routes.js"
 import blogRoute from "./routes/blog.routes.js"
 
@@ -13,9 +14,7 @@ import { checkForAuthenticationCookie } from "./middlewares/auth.middlewares.js"
 
 const app = express();
 
-dotenv.config({
-    path: "./.env"
-})
+
 
 connectDB()
 .then(()=>{
